@@ -1,0 +1,47 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #213547;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #213547;
+}
+
+.right_text input {
+  text-align: right !important;
+}
+
+.no_border_button {
+  color: #1677ff;
+  text-decoration: none;
+  transition: color 0.1s ease-in-out;
+}
+
+.no_border_button:hover {
+  color: #69b1ff;
+}
+
+.back_image {
+  background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+}
+
+.ant-message {
+  z-index: 9999 !important;
+  display: block !important;
+  margin-top: 6% !important;
+}
+
+.saved_plot:hover {
+  background-color: #fafafa;
+}

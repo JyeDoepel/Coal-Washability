@@ -1,0 +1,83 @@
+# ========================
+# React Frontend
+# ========================
+# Node modules
+**/node_modules/
+# Build output
+**/build/
+# Runtime logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+# Local env files
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+# IDE specific
+**/.DS_Store
+**/.vscode/
+**/.idea/
+
+# ========================
+# FastAPI Backend
+# ========================
+# Python cache and virtual environments
+**/__pycache__/
+**/*.py[cod]
+**/*.so
+**/.Python
+**/env/
+**/venv/
+**/.venv/
+**/pip-log.txt
+**/pip-delete-this-directory.txt
+
+# Pydantic-generated cache
+**/.mypy_cache/
+**/.pytest_cache/
+**/.pyre/
+
+# VS Code and other editors
+**/.vscode/
+**/.idea/
+**/*.code-workspace
+
+# Environment and secret files
+**/.env
+**/.env.*
+
+# Uvicorn logs
+**/gunicorn.log
+**/uvicorn.log
+
+# Database and uploads (if any)
+**/*.db
+**/instance/
+**/media/
+**/staticfiles/
+
+# ========================
+# Docker
+# ========================
+**/docker-compose.override.yml
+**/Dockerfile.*
+**/*.tar
+
+# ========================
+# OS
+# ========================
+**.DS_Store
+**Thumbs.db
+
+# ========================
+# Coverage / testing
+# ========================
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+test-results.xml
