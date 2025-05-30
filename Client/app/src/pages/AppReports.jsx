@@ -8,6 +8,7 @@ const options = [
 
 function AppReports({ ip }) {
     const [report_data, set_report_data] = useState([]);
+    const [loading, set_loading] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -20,15 +21,19 @@ function AppReports({ ip }) {
     }, [])
 
     async function get_report_data(report) {
+        set_loading(true);
         const response = await fetch(`${ip}/read_report/${report}`);
         if (response.status == 200) {
             const data = await response.json();
             console.log(data);
+            set_loading(false);
             set_report_data(data);
+            set_loading(false);
         }
         else {
             message.error('Error fetching report data');
         }
+        set_loading(false);
     }
   
     return (
@@ -48,31 +53,20 @@ function AppReports({ ip }) {
                 padding: '16px',          // Optional: space for content
                 boxSizing: 'border-box'   // Ensures padding doesn’t affect height
             }}>
-                {report_data.map((para, index) => 
-                    para.style === 'Title' ? <h1 key={index}>{para.text}</h1> : 
-                    para.style === 'Heading 1' ? <h2>{para.text}</h2> :
-                    para.style === 'Heading 2' ? <h3>{para.text}</h3> :
-                    para.style === 'Normal' ? <p style={{ margin: '1px', textIndent: '2em', textAlign: 'justify', marginTop:'1.5em' }}>{para.text}</p> : null
-                )}
-                
-            </Card>
-
-            {/* <div style={{ maxWidth: '700px', margin: 'auto' }}>
-                {report_data.length === 0 ? 
+                {loading ? 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
                     <Spin size="large" />
-                </div>
-                : 
+                </div> :
                 report_data.map((para, index) => 
                     para.style === 'Title' ? <h1 key={index}>{para.text}</h1> : 
                     para.style === 'Heading 1' ? <h2>{para.text}</h2> :
                     para.style === 'Heading 2' ? <h3>{para.text}</h3> :
                     para.style === 'Normal' ? <p style={{ margin: '1px', textIndent: '2em', textAlign: 'justify', marginTop:'1.5em' }}>{para.text}</p> : null
-                )}
-            </div> */}
+                )    
+            }
+            </Card>
         </div>
     )
 }
-
 
 export default AppReports;

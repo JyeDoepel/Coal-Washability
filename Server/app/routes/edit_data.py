@@ -13,7 +13,7 @@ def edit_data(req):
     df_original = original_data(df_original)
     res = {
         'data': df.to_dict(orient="list"),
-        'product_ranges': [{'max': max(df['H']), 'min': min(df['H'])}],
+        'product_ranges': [{'max': df['H'].nlargest(2).iloc[-1], 'min': min(df['H'])}],
         'original_data': df_original.to_dict(orient="records")
     }
     return res

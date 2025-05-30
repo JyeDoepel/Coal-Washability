@@ -97,10 +97,7 @@ def first_product(ash, data):
 
 
         max_ash = 100-(data['A'].nlargest(2).iloc[-1] - (data['A'].min() - 0.1))/sg_range*100 
-        print(max_ash)
-        max_ash_of_next_product = (min_ash_of_next_product + data['E'][new_row_index])/2
-        print(data)
-        
+        max_ash_of_next_product = (min_ash_of_next_product + data['E'][new_row_index])/2        
 
         next_product_range = {'max': max_ash_of_next_product, 'min': min_ash_of_next_product}
     except:

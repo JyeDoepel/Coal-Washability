@@ -129,6 +129,27 @@ def second_product(ash, data, previous_clean_yeild):
     for index, trace in enumerate(traces):
         trace.update(styles)
 
+
+    min_ash_of_next_product = required_ash
+    try:
+        data = og_data.copy()
+        new_rows = pd.DataFrame({'M': [data['D'].nlargest(2).iloc[-1]]})
+        data = pd.concat([data, new_rows], ignore_index=True)
+        data = data.sort_values(by='M')
+        data = data.reset_index(drop=True)
+        new_row_index = data[data['A'].isna()].index[0]
+        percent_increase = (data['M'][new_row_index] - data['M'][new_row_index-1]) / (data['M'][new_row_index+1] - data['M'][new_row_index-1])
+        for col in ['E']:
+            data[col][new_row_index] = (data[col][new_row_index+1] - data[col][new_row_index-1]) * percent_increase + data[col][new_row_index-1]
+
+        max_ash = 100-(data['A'].nlargest(2).iloc[-1] - (data['A'].min() - 0.1))/sg_range*100 
+        max_ash_of_next_product = (min_ash_of_next_product + data['E'][new_row_index])/2
+        next_product_range = {'max': max_ash_of_next_product, 'min': min_ash_of_next_product}
+    except:
+        next_product_range = None
+
+
+    next_yield = clean_yeild
     clean_yeild = clean_yeild - previous_clean_yeild
 
-    return traces, sg, clean_yeild
+    return traces, sg, clean_yeild, next_product_range, next_yield

@@ -10,9 +10,15 @@ import { CloseOutlined, UploadOutlined, EditOutlined, LineChartOutlined, InfoCir
 import "../index.css";
 
 function getRandomInt(min, max) {
+  if (max-min < 1) {
+    return min;
+  }
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(`Generating random number between ${min} and ${max}`);
+  const value = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(`Generated random number: ${value}`);
+  return value;
 }
 
 const table_columns = [
@@ -30,7 +36,7 @@ const table_columns = [
     )
   },
   {
-    title: 'Yeild %',
+    title: 'Yield %',
     dataIndex: 'yeild',
     key: 'yeild',
     render: (text, record) => (
@@ -798,10 +804,10 @@ function AppCalculator({ ip, token }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div style={{ width: "40%" }}>
                     <p><b>Ash %</b></p>
-                    <InputNumber status={coalProducts[index]['ash'] < plotData['product_ranges'][index]['min'] ? 'error' : ''} min={plotData['product_ranges'][index]['min']} max={plotData['product_ranges'][index]['max']} onChange={(e) => change_ash(e, index)} style={{width: '100%'}} className="right_text" suffix="%" defaultValue={product.ash} />
+                    <InputNumber disabled={coalProducts.length-2 >= index} status={coalProducts[index]['ash'] < plotData['product_ranges'][index]['min'] ? 'error' : ''} min={plotData['product_ranges'][index]['min']} max={plotData['product_ranges'][index]['max']} onChange={(e) => change_ash(e, index)} style={{width: '100%'}} className="right_text" suffix="%" defaultValue={product.ash} />
                   </div>
                   <div>
-                    <p>{Number(table_data[index]?.yeild).toFixed(2) ?? 0}% <b>Yeild</b></p>
+                    <p>{Number(table_data[index]?.yeild).toFixed(2) ?? 0}% <b>Yield</b></p>
                     <p>{Number(table_data[index]?.sg).toFixed(2) ?? 0} <b>SG</b></p>
                   </div>
                 </div>

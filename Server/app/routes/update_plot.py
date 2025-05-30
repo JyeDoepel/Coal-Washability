@@ -15,10 +15,7 @@ def sort_plot_data(data):
     return sorted_data
 
 def update_plot(req):
-    print(req)
     plot_data = sort_plot_data(req['data']['data'])
-    print(req['products'])
-
     coal_products = req['products']
     product_plots = []
     sgs = []
@@ -45,8 +42,8 @@ def update_plot(req):
             table_data.append(table_row)
         if index == 1:
             # Other Coal Products
-            traces, sg, clean_yeild = second_product(product['ash'], plot_data, clean_yeild)
-            product_ranges.append({'max': 100, 'min': 0})
+            traces, sg, clean_yeild, next_product_range, next_yield = second_product(product['ash'], plot_data, clean_yeild)
+            product_ranges.append(next_product_range)
             sgs.append(sg)
             clean_yeilds.append(clean_yeild)
             product_plots.append(traces)
@@ -58,6 +55,22 @@ def update_plot(req):
                 'yeild': f"{clean_yeild:.4f}"
             }
             table_data.append(table_row)
+        if index > 1:
+            # Other Coal Products
+            traces, sg, clean_yeild, next_product_range, next_yield = second_product(product['ash'], plot_data, next_yield)
+            product_ranges.append(next_product_range)
+            sgs.append(sg)
+            clean_yeilds.append(clean_yeild)
+            product_plots.append(traces)
+            table_row = {
+                'key': index+1,
+                'product': product['name'],
+                'ash': f"{product['ash']:.4f}",
+                'sg': f"{sg:.4f}",
+                'yeild': f"{clean_yeild:.4f}"
+            }
+            table_data.append(table_row)
+
     if len(coal_products) > 0:
         traces, ash, yeild = final_tailings(plot_data, sg)
         options.append({'value': index+1, 'label': 'Final Tailings'})
